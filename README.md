@@ -1,4 +1,4 @@
-# Wav2Vec2 API Deploy
+# Wav2Vec2 API 
 
 ### Download base model
 - Download model via this link: https://huggingface.co/nguyenvulebinh/wav2vec2-large-vi-vlsp2020
