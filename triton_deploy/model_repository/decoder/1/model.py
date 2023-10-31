@@ -23,11 +23,13 @@ class TritonPythonModel:
                 json.loads(args['model_config']), "transcript"
             )['data_type']
         )
-        with open(vocab_path, 'r') as f:
+        with open(vocab_path, 'r', encoding='utf-8') as f:
             json_ = f.read()
             vocab_dict = json.loads(json_)
-            vocab_dict = sorted(vocab_dict.items(), key=lambda x: int(x[1]))
-        self.vocab_list = [i[0] for i in vocab_dict]
+            # sort_vocab = sorted((value, key) for (key, value) in vocab_dict.items())
+            # vocab_dict = sorted(vocab_dict.items(), key=lambda x: int(x[1]))
+        # self.vocab_list = [i[0] for i in sort_vocab]
+        self.vocab_list = sorted(vocab_dict)
         self.decoder = build_ctcdecoder(
                                 self.vocab_list,
                                 kenlm_model_path=ngram_path,  # either .arpa or .bin file
@@ -48,7 +50,7 @@ class TritonPythonModel:
             inference_response = pb_utils.InferenceResponse(
                 output_tensors=[
                     pb_utils.Tensor(
-                        "logits",
+                        "transcript",
                         transcript.astype(self.output_dtype)
                     )
                 ]
