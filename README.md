@@ -5,6 +5,14 @@
 
 ### Export model to ONNX
 
-### Triton API
+- To export:
+```
+python3 export_onnx.py
+```
+### Triton
+- To run:
+```
+
+```
 
 ### Restful API
