@@ -7,6 +7,7 @@ from pathlib import Path
 import triton_python_backend_utils as pb_utils
 
 from pyctcdecode import build_ctcdecoder
+from loguru import logger
 
 NGRAM = "ngram/vi_lm_4grams.bin"
 VOCAB = "ngram/vocab.json"
@@ -36,7 +37,8 @@ class TritonPythonModel:
                                 alpha=0.5,  # tuned on a val set
                                 beta=1.5,  # tuned on a val set
                             )
-        
+        # string dtype
+        self._dtypes = [np.bytes_, np.object_]
         print("TritonPythonModel initialized")
 
     def execute(self, requests):
@@ -46,16 +48,11 @@ class TritonPythonModel:
             logits = logits.as_numpy()
 
             transcript = self.decoder.decode(logits.squeeze())
-
-            inference_response = pb_utils.InferenceResponse(
-                output_tensors=[
-                    pb_utils.Tensor(
-                        "transcript",
-                        transcript.astype(self.output_dtype)
-                    )
-                ]
-            )
-            responses.append(inference_response)
+            logger.debug(transcript)
+            transcript_response = pb_utils.Tensor(
+                "transcript", np.array([transcript.encode('utf-8')], dtype=self._dtypes[0]))
+            responses.append(transcript_response)
+            logger.debug(responses[0].shape)
         return responses
 
     def finalize(self):
