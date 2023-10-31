@@ -29,3 +29,4 @@ gunicorn == 20.1.0
 
 pyctcdecode
 https://github.com/kpu/kenlm/archive/master.zip
+soundfile
