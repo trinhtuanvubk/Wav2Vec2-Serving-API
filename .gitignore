@@ -1,3 +1,4 @@
 **/*.bin
 .vscode
 **/*.onnx
+models/*large/
