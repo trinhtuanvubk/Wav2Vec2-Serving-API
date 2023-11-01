@@ -42,8 +42,7 @@ tritonserver --model-repository=/models
 
 - To run restful API:
 ```
-cd api
-uvicorn api.app:app --host 0.0.0.0 --port 8070
+uvicorn api.app:app --host 0.0.0.0 --port 1445
 ```
 
 ### Client

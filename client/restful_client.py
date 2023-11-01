@@ -21,7 +21,8 @@ def restful_client(path, url):
 
 
 if __name__=="__main__":
-    path = "./sample/haimy_voice.wav"
+    path = "../sample/haimy_voice.wav"
+    path = "../sample/test.wav"
     url = "http://0.0.0.0:1445/onnx/transcribe/"
     restful_client(path, url)
 
