@@ -16,12 +16,13 @@ with open("./models/w2v2-base-250h/processor/vocab.json", 'r') as f:
     vocab_dict = sorted(vocab_dict.items(), key=lambda x: int(x[1]))
     print(vocab_dict)
 vocab_list = [i[0] for i in vocab_dict]
+# vocab_list = sorted(vocab_dict)
 print(vocab_list)
 decoder = build_ctcdecoder(
     vocab_list,
     kenlm_model_path='./models/w2v2-base-250h/processor/vi_lm_4grams.bin',  # either .arpa or .bin file
     # unigrams=hotwords,
-    alpha=1.0,  # tuned on a val set
+    alpha=0.5,  # tuned on a val set
     beta=1.5,  # tuned on a val set
 )
 

@@ -28,9 +28,9 @@ class TritonPythonModel:
             json_ = f.read()
             vocab_dict = json.loads(json_)
             # sort_vocab = sorted((value, key) for (key, value) in vocab_dict.items())
-            # vocab_dict = sorted(vocab_dict.items(), key=lambda x: int(x[1]))
-        # self.vocab_list = [i[0] for i in sort_vocab]
-        self.vocab_list = sorted(vocab_dict)
+            vocab_dict = sorted(vocab_dict.items(), key=lambda x: int(x[1]))
+        self.vocab_list = [i[0] for i in vocab_dict]
+        # self.vocab_list = sorted(vocab_dict)
         self.decoder = build_ctcdecoder(
                                 self.vocab_list,
                                 kenlm_model_path=ngram_path,  # either .arpa or .bin file
@@ -51,8 +51,9 @@ class TritonPythonModel:
             logger.debug(transcript)
             transcript_response = pb_utils.Tensor(
                 "transcript", np.array([transcript.encode('utf-8')], dtype=self._dtypes[0]))
-            responses.append(transcript_response)
-            logger.debug(responses[0].shape)
+            inference_response = pb_utils.InferenceResponse([transcript_response])
+            responses.append(inference_response)
+            # logger.debug(responses[0].shape)
         return responses
 
     def finalize(self):

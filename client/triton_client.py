@@ -31,6 +31,7 @@ output = tritonhttpclient.InferRequestedOutput(output_name)
 
 response_triton = triton_client.infer(model_name, model_version=model_version, inputs=[input], outputs=[output])
 logits = response_triton.as_numpy('transcript_output')
+final_res = [i.decode("utf-8") for i in logits]
 # logits = np.asarray(logits, dtype=np.float32)
 
 # logits = session.run(None, {session.get_inputs()[0].name: input_values.numpy()})[0]
@@ -38,4 +39,4 @@ logits = response_triton.as_numpy('transcript_output')
 # prediction = np.argmax(logits, axis=-1)
 # text = processor.decode(prediction.squeeze().tolist())
 
-print(logits)
+print(final_res)
