@@ -1,5 +1,5 @@
 # Wav2Vec2 API 
-- This repo builds API servive with both restful API and Triton API.
+- This repo builds Wav2Vec2 API service with both restful API and Triton API.
 
 ### Download base model
 - Download model via this link: https://huggingface.co/nguyenvulebinh/wav2vec2-large-vi-vlsp2020
