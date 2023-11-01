@@ -28,8 +28,8 @@ if __name__=="__main__":
 
     device = torch.device('cuda')
     print(device)
-    output_path = "./models/w2v2-base-250h/model/model.onnx"
-    model_path = "./models/w2v2-base-250h/model/"
+    output_path = "../models/w2v2-base-250h/model/model.onnx"
+    model_path = "../models/w2v2-base-250h/model/"
 
     dummy_input = torch.rand([1,2500])
     

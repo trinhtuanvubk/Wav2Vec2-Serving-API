@@ -8,9 +8,17 @@
 
 - To export:
 ```
+cd export
 python3 export_onnx.py
 ```
-### Triton
+
+- To test onnx model:
+```
+python3 onnx_test.py
+```
+
+### Run API
+###### Triton API
 - To build a wrapper image of triton:
 ```
 cd triton_deploy
@@ -27,10 +35,26 @@ docker run --gpus=1 -itd \
 tritonserver --model-repository=/models
 ``` 
 
-### Restful API
+- Note:
+    - copy `model.onnx` into `model_repository/wav2vec2/1/model.onnx`
+    - copy `vi_lm_4grams.bin` into `model_repository/decoder/1/ngram/vi_lm_4grams.bin` 
+##### Restful API
 
 - To run restful API:
 ```
 cd api
 uvicorn api.app:app --host 0.0.0.0 --port 8070
+```
+
+### Client
+```
+cd client
+```
+###### Triton client
+```
+python3 triton_client.py
+```
+###### Restful client
+```
+python3 restful_client.py
 ```

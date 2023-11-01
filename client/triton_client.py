@@ -19,7 +19,7 @@ model_version = '1'
 
 triton_client = tritonhttpclient.InferenceServerClient(url=url, verbose=VERBOSE)   
 
-data, sr = librosa.load("./sample/haimy_voice.wav", sr=16000)
+data, sr = librosa.load("../sample/haimy_voice.wav", sr=16000)
 # features = processor(data, sampling_rate=sr, return_tensors="pt")
 # input_values = features.input_values
 input_values=np.expand_dims(data, axis=0)
@@ -30,13 +30,7 @@ output = tritonhttpclient.InferRequestedOutput(output_name)
 
 
 response_triton = triton_client.infer(model_name, model_version=model_version, inputs=[input], outputs=[output])
-logits = response_triton.as_numpy('transcript_output')
-final_res = [i.decode("utf-8") for i in logits]
-# logits = np.asarray(logits, dtype=np.float32)
+raw_transcript = response_triton.as_numpy('transcript_output')
+final_transcript = [i.decode("utf-8") for i in raw_transcript]
 
-# logits = session.run(None, {session.get_inputs()[0].name: input_values.numpy()})[0]
-
-# prediction = np.argmax(logits, axis=-1)
-# text = processor.decode(prediction.squeeze().tolist())
-
-print(final_res)
+print(final_transcript)
