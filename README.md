@@ -2,7 +2,7 @@
 - This repo builds Wav2Vec2 API service with both restful API and Triton API.
 
 ### Download base model
-- Download model via this link: https://huggingface.co/nguyenvulebinh/wav2vec2-large-vi-vlsp2020
+- Download model via this link: https://huggingface.co/nguyenvulebinh/wav2vec2-base-vietnamese-250h
 
 ### Export model to ONNX
 
